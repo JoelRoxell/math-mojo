@@ -1,0 +1,21 @@
+.button
+  align-items: center
+  background-color: baseColor
+  color: fontColor
+  display: flex
+  font-family: fontFamily
+  font-size: rem(24)
+  height: auto
+  justify-content: center
+  transition: all .3s
+  width: 33.33%
+
+  &:last-child
+    width: 100%
+
+  &:hover
+    background-color: lighten(baseColor, 5)
+
+  &:active
+    background-color: actionColor
+    color: fontSecondaryColor

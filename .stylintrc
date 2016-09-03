@@ -1,0 +1,8 @@
+{
+  "brackets": "never",
+  "colons": "always",
+  "semicolons": "never",
+  "sortOrder": "alphabetical",
+  "stackedProperties": "never",
+  "trailingWhitespace": "never"
+}
