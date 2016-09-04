@@ -87,7 +87,7 @@ class LanguageService {
    * Creates a language object based on the currently defined language code.
    */
   _setLanguageLibrary() {
-    const translations = {},
+    let translations = {},
       languageCodes = this._getLanguageCodeHierarchy();
 
     languageCodes.forEach(languageCode => {
@@ -156,8 +156,4 @@ LanguageService.defaultLanguage = 'en';
 
 const languageService = new LanguageService();
 
-export default new Proxy(languageService, {
-  get(target, name, receiver) {
-    return target._currentLibrary[name] || target[name];
-  }
-});
+export default languageService;

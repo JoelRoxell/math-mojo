@@ -3,4 +3,4 @@ math-mojo:
   volumes:
     - .:/usr/src/app
   ports:
-    - '3000:3000'
+    - '8080:3000'
