@@ -22,7 +22,7 @@ Options:
   -s|--ssh-add-key  Add id_rsa.pub to remote host.
   -S|--ssh-secure   Configure secure ssh.
   -d|--docker       Install Docker.
-  -g|--git-init     Install and initialize git.
+  -g|--git-init     Install, initialize git and setup bare repository on remote host.
 
 Examples:
   Add SSH key:
@@ -52,7 +52,7 @@ function git_init() {
   scp "git/post-receive/build-container.sh" "${SSH_USER}@${SERVER_IP}:/tmp/math-mojo-auto-build"
 
   ssh -t "${SSH_USER}@${SERVER_IP}" bash -c "'
-    sudo apt-get update && apt-get install -y -q git
+    sudo apt-get update && sudo apt-get install -y -q git
     sudo rm -rf ${REPO_LOCATION}/${REPO_NAME}.git ${REPO_LOCATION}/${REPO_NAME}
     sudo mkdir -p ${REPO_LOCATION}/${REPO_NAME}
     sudo git --git-dir=${REPO_LOCATION}/${REPO_NAME}.git --bare init
@@ -61,7 +61,7 @@ function git_init() {
     sudo chmod +x ${REPO_LOCATION}/${REPO_NAME}.git/hooks/post-receive
     sudo chown ${SSH_USER}:${SSH_USER} -R ${REPO_LOCATION}/${REPO_NAME}.git ${REPO_LOCATION}/${REPO_NAME}
 
-    echo "Finished repo initialization"
+    echo "Finished bare repository initialization."
   '"
 }
 
@@ -82,6 +82,10 @@ while [[ $# > 0 ]]; do
 
     -g|--git-init)
       git_init
+      ;;
+
+    -rs|--restart)
+      docker_image_restart
       ;;
     *)
       echo "${1} is not a valid flag, run ${0} --help to se options."
