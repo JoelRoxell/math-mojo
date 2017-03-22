@@ -1,0 +1,5 @@
+export const BUTTON_PRESS = 'BUTTON_PRESS';
+export const VALUE_EXCEEDED = 'VALUE_EXCEEDED';
+export const CORRECT_VALUE = 'CORRECT_VALUE';
+export const GENERATE_PROBLEM = 'GENERATE_PROBLEM';
+export const CORRECT = 'CORRECT';

@@ -1,0 +1,3 @@
+// @flow
+export default { button: 'style__button___3eVqf',
+  active: 'style__active___11hhr' };

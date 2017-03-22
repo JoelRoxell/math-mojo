@@ -1,0 +1,3 @@
+// @flow
+export default { 'button-palette': 'style__button-palette___k3HkF',
+  buttonPalette: 'style__button-palette___k3HkF' };

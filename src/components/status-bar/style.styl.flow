@@ -1,0 +1,7 @@
+// @flow
+export default { 'status-bar': 'style__status-bar___3-28q',
+  statusBar: 'style__status-bar___3-28q',
+  'time-left': 'style__time-left___22Uug',
+  timeLeft: 'style__time-left___22Uug',
+  score: 'style__score___1GCc4',
+  settings: 'style__settings___2H1Qh' };
