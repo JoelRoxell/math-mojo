@@ -1,5 +1,5 @@
-// flow-typed signature: 0bb5177083bf69296bdda98e783b4462
-// flow-typed version: 3a256f81e9/chai_v3.5.x/flow_>=v0.24.0
+// flow-typed signature: 777eee7cfcb8f77109f8148b4251bf2d
+// flow-typed version: 85e99047c5/chai_v3.5.x/flow_>=v0.24.0
 
 declare module "chai" {
 
@@ -56,7 +56,10 @@ declare module "chai" {
         key: (key: string) => ExpectChain<T>,
         keys: (key: string | Array<string>, ...keys: Array<string>) => ExpectChain<T>,
 
-        throw: <E>(err: Class<E> | Error | RegExp | string, msg?: RegExp | string) => ExpectChain<T>,
+        throw: <E>(
+            err: Class<E> | Error | RegExp | string,                                                                                   
+            errMsgMatcher?: RegExp | string,                                                                                           
+            msg?: string) => ExpectChain<T>,
 
         respondTo: (method: string) => ExpectChain<T>,
         itself: ExpectChain<T>,
@@ -168,10 +171,10 @@ declare module "chai" {
       static notInstanceOf(val: mixed, constructor: Function, msg?: string): void;
 
       static include(exp: string, inc: mixed, msg?: string): void;
-      static include(exp: Array<mixed>, inc: mixed, msg?: string): void;
+      static include<T>(exp: Array<T>, inc: T, msg?: string): void;
 
       static notInclude(exp: string, inc: mixed, msg?: string): void;
-      static notInclude(exp: Array<mixed>, inc: mixed, msg?: string): void;
+      static notInclude<T>(exp: Array<T>, inc: T, msg?: string): void;
 
       static match(exp: mixed, re: RegExp, msg?: string): void;
       static notMatch(exp: mixed, re: RegExp, msg?: string): void;
@@ -188,6 +191,17 @@ declare module "chai" {
       static deepPropertyNotVal(obj: Object, prop: string, val: mixed, msg?: string): void;
 
       static lengthOf(exp: mixed, len: number, msg?: string): void;
+      
+      static throws<E>(
+          func: () => any,
+          err?: Class<E> | Error | RegExp | string,
+          errorMsgMatcher?: string | RegExp,
+          msg?: string): void;
+      static doesNotThrow<E>(
+          func: () => any,
+          err?: Class<E> | Error | RegExp | string,
+          errorMsgMatcher?: string | RegExp,
+          msg?: string): void;
     }
 
     declare var config: {
