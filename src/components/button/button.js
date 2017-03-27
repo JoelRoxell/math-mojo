@@ -59,7 +59,7 @@ class Button extends Component {
           });
         } }
       >
-        { (interpolatingStyle) => {
+        { interpolatingStyle => {
           return (
             <div
               style={ {

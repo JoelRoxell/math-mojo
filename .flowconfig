@@ -2,6 +2,10 @@
 src/
 
 [ignore]
+.*/node_modules/react-addons-test-utils/.*
+.*/node_modules/fbjs/.*
+.*/node_modules/filehound/.*
+.*/node_modules/file-js/.*
 .*/build|dist/.*
 
 [libs]

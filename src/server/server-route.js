@@ -1,24 +1,51 @@
-import { Router as expressRouter } from 'express';
-import { renderToStaticMarkup } from 'react-dom-stream/server';
-import { match } from 'react-router';
+import React from 'react';
 
-import generateMarkup from './generate-markup';
-import routes from 'routes';
+import { Router as expressRouter } from 'express';
+import { Provider } from 'react-redux';
+import { StaticRouter } from 'react-router-dom';
+import { renderToString } from 'react-dom/server';
+
+import store from '../flux/store';
 
 const router = expressRouter();
 
+import App from 'components/app';
+
 router.get('*', function(req, res) {
-  match({ routes, location: req.url }, function(err, redirectLocation, renderProps) {
-    if (err) {
-      res.status(500).send(err.message);
-    } else if (redirectLocation) {
-      res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-    } else if (renderProps) {
-      renderToStaticMarkup(generateMarkup(renderProps)).pipe(res);
-    } else {
-      res.status(404).send('Not found');
-    }
-  });
+  const context = {};
+
+  const html = renderToString(
+    <Provider store={ store }>
+      <StaticRouter
+        location={ req.url }
+        context={ context }
+      >
+        <App />
+      </StaticRouter>
+    </Provider>
+  );
+
+  return res.status(context.status || 200).send(
+    `
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <title>Math mojo</title>
+        <link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' />
+      </head>
+
+      <body>
+        <div class="app">${html}</div>
+        <script>window.__PRELOADED_STATE__ = ${JSON.stringify(store)}</script>
+        <script src="/public/vendor.js"></script>
+        <script src="/public/hmr.js"></script>
+        <script src="/public/main.js"></script>
+      </body>
+    </html>
+  `,
+  );
 });
 
 export default router;

@@ -1,8 +1,10 @@
 // @flow
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import { Route } from 'react-router';
+
+import Calculator from 'components/calculator';
 
 import style from './app-style.styl';
 
@@ -11,19 +13,11 @@ class App extends Component {
     return (
       <div className={ style.app }>
         <div className={ style.appView }>
-          { this.props.children }
-        </div>
-
-        <div className={ style.modal }>
-          Bottom modal
+          <Route path='/' component={ Calculator } />
         </div>
       </div>
     );
   }
 }
-
-App.propTypes = {
-  children: PropTypes.node
-};
 
 export default App;
